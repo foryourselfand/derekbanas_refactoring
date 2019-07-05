@@ -1,4 +1,4 @@
-package L11_CompositeBuilderTree;
+package L11_12_CompositeBuilderTree_Accumulation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,19 +41,49 @@ public class Item {
 		return itemInfoHM.get(infoName);
 	}
 
+
+//	public String toString() {
+//		StringBuffer itemInfo = new StringBuffer();
+//
+//		itemInfo.append("\n").append(itemName).append(" ");
+//		if (! itemInfoHM.isEmpty())
+//			itemInformation.append(displayProductInfo());
+//
+//		for (Item node : children)
+//			itemInformation.append(node.toString());
+//
+//		return itemInformation.toString();
+//	}
+
+	// This is an accumulation method which accumulates information
+	// into itemInformation. I want to split this big method into
+	// many smaller methods. The String data type won't allow me to
+	// accumulate information across methods though so I'll use a
+	// StringBuffer instead.
 	public String toString() {
-		StringBuilder itemInformation = new StringBuilder("\n" + itemName + " ");
+		StringBuffer itemInfo = new StringBuffer();
 
-		// If Item info is available get it
-		if (! itemInfoHM.isEmpty())
-			itemInformation.append(displayProductInfo());
+		addItemInfoAndChildren(itemInfo);
 
+		return itemInfo.toString();
+	}
 
-		// Attach all children for this Item
+	private void addItemInfoAndChildren(StringBuffer itemInfo) {
+		addItemInformation(itemInfo);
+		addChildrenInformation(itemInfo);
+	}
+
+	private void addItemInformation(StringBuffer itemInfo) {
+		itemInfo.append("\n").append(itemName).append(" ");
+
+		if (! itemInfoHM.isEmpty()) {
+			itemInfo.append(displayProductInfo());
+		}
+	}
+
+	private void addChildrenInformation(StringBuffer itemInfo) {
 		for (Item node : children)
-			itemInformation.append(node.toString());
-
-		return itemInformation.toString();
+			itemInfo.append(node.toString());
 	}
 
 	public String displayProductInfo() {
