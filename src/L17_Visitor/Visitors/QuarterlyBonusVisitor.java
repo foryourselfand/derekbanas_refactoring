@@ -4,31 +4,22 @@ import L17_Visitor.Visitables.Boss;
 import L17_Visitor.Visitables.SalesTrainee;
 import L17_Visitor.Visitables.Salesman;
 
-public class QuarterlyBonusVisitor implements Visitor {
-	public double visit(SalesTrainee trainee) {
-		System.out.println("Trainees Yearly Bonus");
-
+public class QuarterlyBonusVisitor extends Visitor {
+	@Override
+	public double getYearlyBonusAmount(SalesTrainee trainee) {
 		double quarterlyBonusPercentage = (trainee.getSickDays() < 2 && trainee.getFailedTests() < 1) ? .01 : 0;
-		double quarterlyBonusAmount = trainee.getSalary() * quarterlyBonusPercentage;
-
-		return quarterlyBonusAmount;
+		return trainee.getSalary() * quarterlyBonusPercentage;
 	}
 
-	public double visit(Salesman salesman) {
-		System.out.println("Salesmans Yearly Bonus");
-
+	@Override
+	public double getYearlyBonusAmount(Salesman salesman) {
 		double quarterlyBonusPercentage = (salesman.getTotalSalesAmount() > 25000 && salesman.getNewCustomers() > 20) ? .03 : 0;
-		double quarterlyBonusAmount = salesman.getTotalSalesAmount() * quarterlyBonusPercentage;
-
-		return quarterlyBonusAmount;
+		return salesman.getTotalSalesAmount() * quarterlyBonusPercentage;
 	}
 
-	public double visit(Boss boss) {
-		System.out.println("Bosses Yearly Bonus");
-
+	@Override
+	public double getYearlyBonusAmount(Boss boss) {
 		double quarterlyBonusPercentage = (boss.getOfficeExpenses() < 12000 && boss.getNewCustomers() > 250) ? .05 : .01;
-		double quarterlyBonusAmount = boss.getTotalSalesAmount() * quarterlyBonusPercentage;
-
-		return quarterlyBonusAmount;
+		return boss.getTotalSalesAmount() * quarterlyBonusPercentage;
 	}
 }

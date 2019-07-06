@@ -4,32 +4,22 @@ import L17_Visitor.Visitables.Boss;
 import L17_Visitor.Visitables.SalesTrainee;
 import L17_Visitor.Visitables.Salesman;
 
-public class YearlyBonusVisitor implements Visitor {
-	public double visit(SalesTrainee trainee) {
-		System.out.println("Trainees Yearly Bonus");
-
+public class YearlyBonusVisitor extends Visitor {
+	@Override
+	public double getYearlyBonusAmount(SalesTrainee trainee) {
 		double yearlyBonusPercentage = (trainee.getSickDays() < 10 && trainee.getFailedTests() < 2) ? .10 : .02;
-		double yearlyBonusAmount = trainee.getSalary() * yearlyBonusPercentage;
-
-		return yearlyBonusAmount;
-
+		return trainee.getSalary() * yearlyBonusPercentage;
 	}
 
-	public double visit(Salesman salesman) {
-		System.out.println("Salesmans Yearly Bonus");
-
+	@Override
+	public double getYearlyBonusAmount(Salesman salesman) {
 		double yearlyBonusPercentage = (salesman.getTotalSalesAmount() > 100000 && salesman.getNewCustomers() > 50) ? .12 : .04;
-		double yearlyBonusAmount = salesman.getTotalSalesAmount() * yearlyBonusPercentage;
-
-		return yearlyBonusAmount;
+		return salesman.getTotalSalesAmount() * yearlyBonusPercentage;
 	}
 
-	public double visit(Boss boss) {
-		System.out.println("Bosses Yearly Bonus");
-
+	@Override
+	public double getYearlyBonusAmount(Boss boss) {
 		double yearlyBonusPercentage = (boss.getOfficeExpenses() < 50000 && boss.getNewCustomers() > 1000) ? .15 : .04;
-		double yearlyBonusAmount = boss.getTotalSalesAmount() * yearlyBonusPercentage;
-
-		return yearlyBonusAmount;
+		return boss.getTotalSalesAmount() * yearlyBonusPercentage;
 	}
 }
